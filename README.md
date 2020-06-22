@@ -21,7 +21,11 @@ Default username and password for this switch is admin and admin, so:
 
 go run main.go --host 10.0.0.3 --username admin --password admin
 
-## Metrics Exported on /metrics
+## Run with docker:
+
+docker run -it -p 9717:9717 thelastguardian/tplinkexporter --host 10.0.0.3 --username admin --password admin
+
+## Metrics Exported on :9717/metrics
 
 ```
 tplinkexporter_portstats_state{portnum="1"-"8",host="host"}
