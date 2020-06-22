@@ -6,8 +6,12 @@ Exports port stats from TPLink's EasySmart Switches. Very alpha, basic functiona
 Tested on:
 
 TPLink EasySmart Gigabit 8 Port Switch (TL-SG108E):
-v3 Firmware: 1.0.0 Build 20171214 Rel.70905 (based on web GUI)
-v4 Firmware: 1.0.0 Build 20181120 Rel.40749
+- v3 Firmware: 1.0.0 Build 20171214 Rel.70905 (based on web GUI)
+- v4 Firmware: 1.0.0 Build 20181120 Rel.40749
+
+## Grafana Dashboard
+
+Basic Grafana dashboard using the exporter - https://grafana.com/grafana/dashboards/12517
 
 ## Usage
 
