@@ -23,9 +23,11 @@ go run main.go --host 10.0.0.3 --username admin --password admin
 
 ## Metrics Exported on /metrics
 
+```
 tplinkexporter_portstats_state{portnum="1"-"8",host="host"}
 tplinkexporter_portstats_linkstatus{portnum="1"-"8",host="host"}
 tplinkexporter_portstats_rxgoodpkt{portnum="1"-"8",host="host"}
 tplinkexporter_portstats_rxbadpkt{portnum="1"-"8",host="host"}
 tplinkexporter_portstats_txgoodpkt{portnum="1"-"8",host="host"}
 tplinkexporter_portstats_txbadpkt{portnum="1"-"8",host="host"}
+```
