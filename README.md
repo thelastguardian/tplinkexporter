@@ -9,6 +9,9 @@ TPLink EasySmart Gigabit 8 Port Switch (TL-SG108E):
 - v3 Firmware: 1.0.0 Build 20171214 Rel.70905 (based on web GUI)
 - v4 Firmware: 1.0.0 Build 20181120 Rel.40749
 
+Should work on the switches of the same family, but untested personally:
+- TPLink EasySmart Gigabit 16 Port Switch TL-SG116E
+
 ## Grafana Dashboard
 
 Basic Grafana dashboard using the exporter - https://grafana.com/grafana/dashboards/12517
