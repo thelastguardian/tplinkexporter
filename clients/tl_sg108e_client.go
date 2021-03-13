@@ -2,6 +2,7 @@ package clients
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -39,7 +40,12 @@ func (client *TPLINKSwitch) GetPortStats() ([]portStats, error) {
 		Pkts       []int
 	}
 	// "http://IP/logon.cgi"
-	_, err := http.PostForm(fmt.Sprintf("http://%s/logon.cgi", client.host), url.Values{"username": {client.username}, "password": {client.password}, "logon": {"Login"}})
+	resp, err := http.PostForm(fmt.Sprintf("http://%s/logon.cgi", client.host), url.Values{"username": {client.username}, "password": {client.password}, "logon": {"Login"}})
+	if err != nil {
+		// handle error
+		return nil, err
+	}
+	defer resp.Body.Close()
 	// fmt.Println(resp, err)
 	// "http://IP/PortStatisticsRpm.htm")
 	resp2, err := http.Get(fmt.Sprintf("http://%s/PortStatisticsRpm.htm", client.host))
@@ -62,10 +68,14 @@ func (client *TPLINKSwitch) GetPortStats() ([]portStats, error) {
 		"pkts", `"Pkts"`)
 	// fmt.Println(string(jbody))
 	res := regexp.MustCompile(`all_info = ({[^;]*});`).FindStringSubmatch(jbody)
-	fmt.Println(res[1])
+	if res == nil {
+		// fmt.Println(jbody)
+		return nil, errors.New("unexpected response for port statistics http call: " + jbody)
+	}
+	// fmt.Println(res[1])
 	var jparsed allInfo
 	json.Unmarshal([]byte(res[1]), &jparsed)
-	fmt.Println(jparsed)
+	// fmt.Println(jparsed)
 	var portsInfos []portStats
 	portcount := len(jparsed.State)
 	for i := 0; i < portcount; i++ {

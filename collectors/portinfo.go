@@ -85,10 +85,10 @@ func (c *TrafficCollector) Collect(ch chan<- prometheus.Metric) {
 	} else {
 		for portnum := 0; portnum < len(stats); portnum++ {
 			for name, value := range stats[portnum].PktCount {
-				log.Infof("portnum '%d', metricname '%s', metricvalue '%d'", portnum, name, value)
+				// log.Infof("portnum '%d', metricname '%s', metricvalue '%d'", portnum, name, value)
 				c.pktMetrics[name].With(prometheus.Labels{"portnum": strconv.FormatInt(int64(portnum+1), 10), "host": c.client.GetHost()}).Set(float64(value))
 			}
-			log.Infof("portnum '%d', state '%d', linkstatus '%d'", portnum, stats[portnum].State, stats[portnum].LinkStatus)
+			// log.Infof("portnum '%d', state '%d', linkstatus '%d'", portnum, stats[portnum].State, stats[portnum].LinkStatus)
 			c.statusMetrics["State"].With(prometheus.Labels{"portnum": strconv.FormatInt(int64(portnum+1), 10), "host": c.client.GetHost()}).Set(float64(stats[portnum].State))
 			c.statusMetrics["LinkStatus"].With(prometheus.Labels{"portnum": strconv.FormatInt(int64(portnum+1), 10), "host": c.client.GetHost()}).Set(float64(stats[portnum].LinkStatus))
 		}
