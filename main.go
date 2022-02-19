@@ -17,6 +17,7 @@ func main() {
 		host     = kingpin.Flag("host", "Host of target tplink easysmart switch.").Required().String()
 		username = kingpin.Flag("username", "Username for switch GUI login").Default("admin").String()
 		password = kingpin.Flag("password", "Password for switch GUI login").Required().String()
+		port = kingpin.Flag("port", "Port for promteheus scraper").Required().String()
 	)
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
@@ -24,6 +25,6 @@ func main() {
 	trafficCollector := collectors.NewTrafficCollector("tplinkexporter", tplinkSwitch)
 	prometheus.MustRegister(trafficCollector)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Info("Beginning to serve on port :9717")
-	log.Fatal(http.ListenAndServe(":9717", nil))
+	log.Info("Beginning to serve on port :"+ *port)
+	log.Fatal(http.ListenAndServe(":"+ *port, nil))
 }
