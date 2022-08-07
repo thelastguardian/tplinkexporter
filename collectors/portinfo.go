@@ -2,11 +2,11 @@ package collectors
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/common/log"
 
 	"github.com/thelastguardian/tplinkexporter/clients"
 )
@@ -80,7 +80,7 @@ func (c *TrafficCollector) Collect(ch chan<- prometheus.Metric) {
 
 	stats, err := c.client.GetPortStats()
 	if err != nil {
-		log.Errorf("Error while collecting traffic statistics: %v", err)
+		log.Println("Error while collecting traffic statistics: %v", err)
 		// c.trafficScrapeErrorsTotalMetric.Inc()
 	} else {
 		for portnum := 0; portnum < len(stats); portnum++ {
