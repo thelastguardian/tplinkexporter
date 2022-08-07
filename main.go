@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -17,7 +18,7 @@ func main() {
 		host     = kingpin.Flag("host", "Host of target tplink easysmart switch.").Required().String()
 		username = kingpin.Flag("username", "Username for switch GUI login").Default("admin").String()
 		password = kingpin.Flag("password", "Password for switch GUI login").Required().String()
-		port = kingpin.Flag("port", "Port for promteheus scraper").Required().String()
+		port     = kingpin.Flag("port", "Metrics port to listen on for prometheus scrapes").Default("9717").Int()
 	)
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
@@ -25,6 +26,6 @@ func main() {
 	trafficCollector := collectors.NewTrafficCollector("tplinkexporter", tplinkSwitch)
 	prometheus.MustRegister(trafficCollector)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Info("Beginning to serve on port :"+ *port)
-	log.Fatal(http.ListenAndServe(":"+ *port, nil))
+	log.Info("Beginning to serve on port :" + strconv.Itoa(*port))
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*port), nil))
 }
