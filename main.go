@@ -1,12 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/prometheus/common/log"
 	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/thelastguardian/tplinkexporter/clients"
@@ -26,6 +26,6 @@ func main() {
 	trafficCollector := collectors.NewTrafficCollector("tplinkexporter", tplinkSwitch)
 	prometheus.MustRegister(trafficCollector)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Info("Beginning to serve on port :" + strconv.Itoa(*port))
+	log.Printf("Beginning to serve on port :" + strconv.Itoa(*port))
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(*port), nil))
 }
