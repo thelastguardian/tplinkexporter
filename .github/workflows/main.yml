@@ -28,6 +28,8 @@ jobs:
           images: |
             thelastguardian/tplinkexporter
           tags: |
+            # set latest tag for default branch
+            type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch
             type=ref,event=pr
             type=sha
