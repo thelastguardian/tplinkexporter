@@ -15,10 +15,10 @@ import (
 
 func main() {
 	var (
-		host     = kingpin.Flag("host", "Host of target tplink easysmart switch.").Required().String()
-		username = kingpin.Flag("username", "Username for switch GUI login").Default("admin").String()
-		password = kingpin.Flag("password", "Password for switch GUI login").Required().String()
-		port     = kingpin.Flag("port", "Metrics port to listen on for prometheus scrapes").Default("9717").Int()
+		host     = kingpin.Flag("host", "Host of target tplink easysmart switch.").Envar("HOST").Required().String()
+		username = kingpin.Flag("username", "Username for switch GUI login").Envar("USERNAME").Default("admin").String()
+		password = kingpin.Flag("password", "Password for switch GUI login").Envar("PASSWORD").Required().String()
+		port     = kingpin.Flag("port", "Metrics port to listen on for prometheus scrapes").Envar("PORT").Default("9717").Int()
 	)
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
