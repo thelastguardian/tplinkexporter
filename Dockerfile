@@ -13,5 +13,5 @@ RUN apk --update add ca-certificates
 FROM scratch
 COPY --from=build /build /
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-EXPOSE 8080
+EXPOSE 9717
 ENTRYPOINT [ "/app" ]
