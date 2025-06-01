@@ -80,7 +80,7 @@ func (c *TrafficCollector) Collect(ch chan<- prometheus.Metric) {
 
 	stats, err := c.client.GetPortStats()
 	if err != nil {
-		log.Println("Error while collecting traffic statistics: %v", err)
+		log.Printf("Error while collecting traffic statistics: %v\n", err)
 		// c.trafficScrapeErrorsTotalMetric.Inc()
 	} else {
 		for portnum := 0; portnum < len(stats); portnum++ {
